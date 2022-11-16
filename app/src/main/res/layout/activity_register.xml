@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="vm"
+            type="com.example.chatapp.ui.register.RegisterViewModel" />
+
+    </data>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/background"
+        tools:context=".ui.register.RegisterActivity">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/transparent"
+            app:elevation="0dp"
+            android:theme="@style/Theme.ChatApp.AppBarOverlay">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="@color/transparent"
+                app:popupTheme="@style/Theme.ChatApp.PopupOverlay">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Create Account"
+                        android:textColor="@color/white"
+                        android:textSize="26sp"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.appcompat.widget.Toolbar>
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent=".30" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintTop_toBottomOf="@id/guideline">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/first_name_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:error="@{vm.firstNameError}"
+                    app:boxBackgroundColor="@color/transparent">
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="First Name"
+                        android:text="@={vm.firstName}"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginStart="18dp"
+                        android:layout_marginEnd="18dp" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/last_name_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:error="@{vm.lastNameError}"
+                    app:boxBackgroundColor="@color/transparent">
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Last Name"
+                        android:text="@={vm.lastName}"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginStart="18dp"
+                        android:layout_marginEnd="18dp" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/user_name_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:error="@{vm.userNameError}"
+                    app:boxBackgroundColor="@color/transparent">
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="User Name"
+                        android:text="@={vm.userName}"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginStart="18dp"
+                        android:layout_marginEnd="18dp" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/email_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:error="@{vm.emailError}"
+                    app:boxBackgroundColor="@color/transparent">
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="E-mail Adress"
+                        android:text="@={vm.email}"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginStart="18dp"
+                        android:layout_marginEnd="18dp" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/password_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:error="@{vm.passwordError}"
+                    app:boxBackgroundColor="@color/transparent">
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Password"
+                        android:text="@={vm.password}"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginStart="18dp"
+                        android:layout_marginEnd="18dp" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <Button
+                    android:id="@+id/create_account_btn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Create Account"
+                    android:onClick="@{()->vm.createAccount()}"
+                    android:background="@drawable/btn_shape"
+                    android:layout_marginTop="18dp"
+                    android:layout_marginStart="18dp"
+                    android:layout_marginEnd="18dp" />
+            </LinearLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>
