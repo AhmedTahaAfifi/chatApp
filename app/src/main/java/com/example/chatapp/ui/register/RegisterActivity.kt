@@ -23,4 +23,5 @@ class RegisterActivity : BaseActivity<ActivityRegisterBinding,RegisterViewModel>
     override fun initViewModel(): RegisterViewModel {
         return ViewModelProvider(this)[RegisterViewModel::class.java]
     }
+
 }
