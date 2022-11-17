@@ -35,7 +35,7 @@ class LoginViewModel : BaseViewModel() {
         return valid
     }
     private val auth = Firebase.auth
-    fun getAccountFromFirebase() {
+    private fun getAccountFromFirebase() {
         showLoadeing.value = true
         auth.signInWithEmailAndPassword(email.get()!!,password.get()!!)
             .addOnCompleteListener { task->

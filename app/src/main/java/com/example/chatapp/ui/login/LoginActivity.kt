@@ -1,14 +1,10 @@
 package com.example.chatapp.ui.login
 
-import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
 import androidx.lifecycle.ViewModelProvider
 import com.example.chatapp.R
 import com.example.chatapp.base.BaseActivity
 import com.example.chatapp.databinding.ActivityLoginBinding
-import com.example.chatapp.ui.register.RegisterActivity
 
 class LoginActivity : BaseActivity<ActivityLoginBinding,LoginViewModel>() {
     override fun onCreate(savedInstanceState: Bundle?) {
