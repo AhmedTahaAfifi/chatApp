@@ -1,10 +1,13 @@
 package com.example.chatapp.ui.register
 
+import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import androidx.lifecycle.ViewModelProvider
 import com.example.chatapp.R
 import com.example.chatapp.base.BaseActivity
 import com.example.chatapp.databinding.ActivityRegisterBinding
+import com.example.chatapp.ui.login.LoginActivity
 
 
 class RegisterActivity : BaseActivity<ActivityRegisterBinding,RegisterViewModel>() {
@@ -23,4 +26,5 @@ class RegisterActivity : BaseActivity<ActivityRegisterBinding,RegisterViewModel>
     override fun initViewModel(): RegisterViewModel {
         return ViewModelProvider(this)[RegisterViewModel::class.java]
     }
+
 }

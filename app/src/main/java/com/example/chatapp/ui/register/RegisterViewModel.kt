@@ -2,12 +2,9 @@ package com.example.chatapp.ui.register
 
 import android.util.Log
 import androidx.databinding.ObservableField
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import com.example.chatapp.base.BaseViewModel
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
-import kotlin.math.log
 
 class RegisterViewModel: BaseViewModel() {
     val firstName = ObservableField<String>()
@@ -23,13 +20,13 @@ class RegisterViewModel: BaseViewModel() {
 
 
 
-    val auth = Firebase.auth
+    private val auth = Firebase.auth
     fun createAccount(){
         if (validate()){
             addAccountToFirebase()
         }
     }
-    fun validate():Boolean{
+    private fun validate():Boolean{
         var valid = true
         if (firstName.get().isNullOrBlank()){
             firstNameError.set("please enter first name")
@@ -63,7 +60,7 @@ class RegisterViewModel: BaseViewModel() {
         }
         return valid
     }
-    fun addAccountToFirebase(){
+    private fun addAccountToFirebase(){
         showLoadeing.value = true
         auth.createUserWithEmailAndPassword(email.get()!!, password.get()!!)
             .addOnCompleteListener { task->
