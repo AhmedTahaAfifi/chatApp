@@ -54,6 +54,18 @@
             android:layout_height="match_parent"
             app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
 
+            <ProgressBar
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:visibility="@{!vm.progressBar}"
+                android:elevation="100dp"
+                android:indeterminateTint="@color/teal_200"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                />
+
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/guideline"
                 android:layout_width="match_parent"
@@ -78,6 +90,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="First Name"
+                        android:singleLine="true"
                         android:text="@={vm.firstName}"
                         android:layout_marginTop="8dp"
                         android:layout_marginStart="18dp"
@@ -95,6 +108,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="Last Name"
+                        android:singleLine="true"
                         android:text="@={vm.lastName}"
                         android:layout_marginTop="8dp"
                         android:layout_marginStart="18dp"
@@ -112,6 +126,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="User Name"
+                        android:singleLine="true"
                         android:text="@={vm.userName}"
                         android:layout_marginTop="8dp"
                         android:layout_marginStart="18dp"
@@ -129,6 +144,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="E-mail Adress"
+                        android:singleLine="true"
                         android:text="@={vm.email}"
                         android:layout_marginTop="8dp"
                         android:layout_marginStart="18dp"
@@ -146,6 +162,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="Password"
+                        android:singleLine="true"
+                        android:inputType="textPassword"
                         android:text="@={vm.password}"
                         android:layout_marginTop="8dp"
                         android:layout_marginStart="18dp"
