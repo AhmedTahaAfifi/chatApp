@@ -3,10 +3,12 @@ package com.example.chatapp.ui.register
 import android.util.Log
 import androidx.databinding.ObservableField
 import com.example.chatapp.base.BaseViewModel
+import com.example.chatapp.database.addUserToFirestore
+import com.example.chatapp.model.AppUser
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 
-class RegisterViewModel: BaseViewModel() {
+class RegisterViewModel: BaseViewModel<Navigator>() {
     val firstName = ObservableField<String>()
     val firstNameError = ObservableField<String>()
     val lastName = ObservableField<String>()
@@ -17,6 +19,7 @@ class RegisterViewModel: BaseViewModel() {
     val emailError = ObservableField<String>()
     val password = ObservableField<String>()
     val passwordError = ObservableField<String>()
+    var progressBar = ObservableField<Boolean>()
 
 
 
@@ -61,14 +64,16 @@ class RegisterViewModel: BaseViewModel() {
         return valid
     }
     private fun addAccountToFirebase(){
-        showLoadeing.value = true
+        //showLoadeing.value = true
+        progressBar.set(true)
         auth.createUserWithEmailAndPassword(email.get()!!, password.get()!!)
             .addOnCompleteListener { task->
-                showLoadeing.value = false
+                //showLoadeing.value = false
+                progressBar.set(false)
                 if (task.isSuccessful){
                     //sign in success
-                    messageLiveData.value = "Successful"
-                    Log.e("firebase","createUserWithEmail:Success")
+                createFirestoreUser(task.result.user?.uid)
+
                 }else{
                     messageLiveData.value = task.exception?.localizedMessage
                     Log.e("firebase","createUserWithEmail:Failure"
@@ -76,4 +81,27 @@ class RegisterViewModel: BaseViewModel() {
                 }
             }
     }
+
+    private fun createFirestoreUser(uid: String?) {
+        //showLoadeing.value = true
+        progressBar.set(true)
+        val user = AppUser(
+            id = uid,
+            firstName = firstName.get(),
+            lastName = lastName.get(),
+            userName = userName.get(),
+            email = email.get()
+        )
+        addUserToFirestore(user,
+            {
+                //showLoadeing.value = false
+                progressBar.set(false)
+                navigator?.openHomeScreen()
+        }, {
+                //showLoadeing.value = false
+                progressBar.set(false)
+                messageLiveData.value = it.localizedMessage
+        })
+    }
+
 }
