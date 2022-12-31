@@ -1,14 +1,15 @@
 package com.example.chatapp.base
 
-import android.app.ProgressDialog
 import android.content.DialogInterface
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 
-abstract class BaseActivity<DB:ViewDataBinding,VM:BaseViewModel> :AppCompatActivity() {
+abstract class BaseActivity<DB:ViewDataBinding,VM:BaseViewModel<*>> :AppCompatActivity() {
+
     lateinit var viewModel:VM
     lateinit var viewDataBinding:DB
 
@@ -23,11 +24,8 @@ abstract class BaseActivity<DB:ViewDataBinding,VM:BaseViewModel> :AppCompatActiv
         viewModel.messageLiveData.observe(this) { message ->
             showDialog(message,"ok")
         }
-        viewModel.showLoadeing.observe(this) { show ->
-            if (show)
-                showLoading()
-            else
-                hideLoading()
+        viewModel.toastLiveData.observe(this){toast->
+            makeToast(toast)
         }
     }
     private var alertDialog:AlertDialog?=null
@@ -55,17 +53,10 @@ abstract class BaseActivity<DB:ViewDataBinding,VM:BaseViewModel> :AppCompatActiv
         alertDialog = null
     }
 
-    private var progressDialog:ProgressDialog?=null
-    private fun showLoading() {
-        progressDialog = ProgressDialog(this)
-        progressDialog?.setMessage("Loading..")
-        progressDialog?.setCancelable(false)
-        progressDialog?.show()
+    fun makeToast(message:String){
+        Toast.makeText(this,message,Toast.LENGTH_LONG).show()
     }
-    private fun hideLoading() {
-        progressDialog?.dismiss()
-        progressDialog = null
-    }
+
 
     abstract fun getLayoutId(): Int
     abstract fun initViewModel(): VM
