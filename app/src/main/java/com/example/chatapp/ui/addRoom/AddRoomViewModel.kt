@@ -34,6 +34,7 @@ class AddRoomViewModel : BaseViewModel<Navigator>() {
         }
         if (roomDescreption.get().isNullOrBlank()) {
             roomDescreptionError.set("please enter Room Descreption")
+            valid = false
         }else {
             roomDescreptionError.set(null)
         }

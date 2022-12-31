@@ -2,6 +2,7 @@ package com.example.chatapp.ui.login
 
 import android.util.Log
 import androidx.databinding.ObservableField
+import com.example.chatapp.DataUtils
 import com.example.chatapp.base.BaseViewModel
 import com.example.chatapp.database.logIn
 import com.example.chatapp.model.AppUser
@@ -68,6 +69,7 @@ class LoginViewModel : BaseViewModel<Navigator>() {
                 messageLiveData.value = "Invalid email or password"
                 return@logIn
             }
+            DataUtils.user = user
             navigator?.openHomeScreen()
         }, {
             //showLoadeing.value = false

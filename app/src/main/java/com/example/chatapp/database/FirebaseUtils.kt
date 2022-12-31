@@ -1,6 +1,7 @@
 package com.example.chatapp.database
 
 import com.example.chatapp.model.AppUser
+import com.example.chatapp.model.Message
 import com.example.chatapp.model.Room
 import com.google.android.gms.tasks.OnFailureListener
 import com.google.android.gms.tasks.OnSuccessListener
@@ -50,3 +51,22 @@ fun getRoom(onSuccessListener: OnSuccessListener<QuerySnapshot>,onFailureListene
         .addOnSuccessListener(onSuccessListener)
         .addOnFailureListener(onFailureListener)
 }
+
+fun getMessagesRef(roomId: String):CollectionReference{
+    val collectionRef = getCollection(Room.COLLECTION_NAME)
+    val roomRef = collectionRef.document(roomId)
+    return roomRef.collection(Message.COLLECTION_NAME)
+}
+
+fun addMessage(message:Message,onSuccessListener: OnSuccessListener<Void>,
+               onFailureListener: OnFailureListener
+               ){
+    val messagesRef = getMessagesRef(message.roomId!!)
+    val messageDoc = messagesRef.document()
+    message.id = messageDoc.id
+    messageDoc.set(message)
+        .addOnSuccessListener(onSuccessListener)
+        .addOnFailureListener(onFailureListener)
+}
+
+

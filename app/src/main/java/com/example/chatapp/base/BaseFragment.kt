@@ -2,42 +2,59 @@ package com.example.chatapp.base
 
 import android.content.DialogInterface
 import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
-import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
+import androidx.fragment.app.Fragment
 
-abstract class BaseActivity<DB:ViewDataBinding,VM:BaseViewModel<*>> :AppCompatActivity() {
-
+abstract class BaseFragment<DB: ViewDataBinding,VM:FragmentViewModel>:Fragment() {
     lateinit var viewModel:VM
     lateinit var viewDataBinding:DB
 
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        viewDataBinding = DataBindingUtil.inflate(
+            inflater,
+            getLayoutId(),
+            container,
+            false
+        )
+        return viewDataBinding.root
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewDataBinding = DataBindingUtil.setContentView(this, getLayoutId())
         viewModel = initViewModel()
+
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         subscribetoLiveData()
     }
 
     private fun subscribetoLiveData() {
-        viewModel.messageLiveData.observe(this) { message ->
+        viewModel.messageLiveData.observe(viewLifecycleOwner) { message ->
             showDialog(message,"ok")
         }
-        viewModel.toastLiveData.observe(this){toast->
-            makeToast(toast)
-        }
     }
-    private var alertDialog:AlertDialog?=null
+    private var alertDialog: AlertDialog?=null
     private fun showDialog(message:String,
                            posActionName:String?=null,
-                           posAction:DialogInterface.OnClickListener?=null,
+                           posAction: DialogInterface.OnClickListener?=null,
                            negActionName:String?=null,
-                           negAction:DialogInterface.OnClickListener?=null,
+                           negAction: DialogInterface.OnClickListener?=null,
                            cancelable:Boolean=true
-                   ){
+    ){
         val defAction = DialogInterface.OnClickListener { dialog, p1 -> dialog?.dismiss() }
-        val builder = AlertDialog.Builder(this).setMessage(message)
+        val builder = AlertDialog.Builder(requireContext()).setMessage(message)
         if (posActionName!=null){
             builder.setPositiveButton(posActionName,posAction ?: defAction)
         }
@@ -54,11 +71,10 @@ abstract class BaseActivity<DB:ViewDataBinding,VM:BaseViewModel<*>> :AppCompatAc
     }
 
     fun makeToast(message:String){
-        Toast.makeText(this,message,Toast.LENGTH_LONG).show()
+        Toast.makeText(context,message, Toast.LENGTH_LONG).show()
     }
-
 
     abstract fun getLayoutId(): Int
     abstract fun initViewModel(): VM
-
 }
+
