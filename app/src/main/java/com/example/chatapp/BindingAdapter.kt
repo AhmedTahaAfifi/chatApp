@@ -1,6 +1,7 @@
 package com.example.chatapp
 
 import android.view.View
+import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import com.google.android.material.textfield.TextInputLayout
 
@@ -16,6 +17,11 @@ fun setVisibility(view: View, visible: Boolean) {
     }else {
         View.VISIBLE
     }
+}
+
+@BindingAdapter("app:imageSrc")
+fun setImage(imageView: ImageView,imageId:Int){
+    imageView.setImageResource(imageId)
 }
 
 

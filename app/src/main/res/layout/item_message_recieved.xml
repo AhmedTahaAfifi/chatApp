@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+        <data>
+                <variable
+                    name="item"
+                    type="com.example.chatapp.model.Message" />
+        </data>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="start">
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{item.senderName}"
+                    tools:text="Ahmed"
+                    android:textSize="15dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginBottom="2dp"
+                    />
+
+                <TextView
+                    android:id="@+id/recieved_message"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{item.messagecontent}"
+                    android:textColor="@color/white"
+                    android:textSize="14dp"
+                    android:paddingHorizontal="25dp"
+                    android:paddingVertical="12dp"
+                    android:background="@drawable/background_recieved_message"
+                    tools:text="hi how are you doing" />
+
+                <TextView
+                    android:id="@+id/time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end|bottom"
+                    android:text="@{item.formatDateTime()}" />
+
+        </LinearLayout>
+</layout>

@@ -2,6 +2,7 @@ package com.example.chatapp.ui.register
 
 import android.util.Log
 import androidx.databinding.ObservableField
+import com.example.chatapp.DataUtils
 import com.example.chatapp.base.BaseViewModel
 import com.example.chatapp.database.addUserToFirestore
 import com.example.chatapp.model.AppUser
@@ -19,7 +20,7 @@ class RegisterViewModel: BaseViewModel<Navigator>() {
     val emailError = ObservableField<String>()
     val password = ObservableField<String>()
     val passwordError = ObservableField<String>()
-    var progressBar = ObservableField<Boolean>()
+    val progressBar = ObservableField<Boolean>()
 
 
 
@@ -96,6 +97,7 @@ class RegisterViewModel: BaseViewModel<Navigator>() {
             {
                 //showLoadeing.value = false
                 progressBar.set(false)
+                DataUtils.user = user
                 navigator?.openHomeScreen()
         }, {
                 //showLoadeing.value = false

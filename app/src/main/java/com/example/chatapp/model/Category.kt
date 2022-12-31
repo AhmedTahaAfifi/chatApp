@@ -8,13 +8,13 @@ data class Category (
     val imageId:Int?=null
         ){
     companion object{
-        private const val ISLAM = "islam"
-        private const val GAMES = "games"
-        private const val MUSIC = "music"
-        private const val SPORTS = "sports"
-        private const val VIDEO = "video"
-        private const val TECHNOLOGY = "technology"
-        private fun fromId(catId:String):Category{
+        const val ISLAM = "islam"
+        const val GAMES = "games"
+        const val MUSIC = "music"
+        const val SPORTS = "sports"
+        const val VIDEO = "video"
+        const val TECHNOLOGY = "technology"
+        fun fromId(catId:String):Category{
             when(catId){
                 ISLAM->{
                     return Category(
